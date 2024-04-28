@@ -36,6 +36,7 @@
     import IconYouTube from '~icons/radix-icons/video';
     import IconImage from '~icons/radix-icons/image';
     import IconPasteVideo from '~icons/icon-park-outline/video';
+    import IconDownload from '~icons/icon-park-outline/download';
 
     // Components and their data
     import Widget from "$lib/Widget.svelte";
@@ -70,6 +71,13 @@
         console.log('restartLap');
         $lapStarted = new Date();
     }
+    async function getFile() {
+        // Open file picker and destructure the result the first handle
+        const [fileHandle] = await window.showOpenFilePicker();
+        const file = await fileHandle.getFile();
+        return file;
+    }
+
 
     // time formatter - move to time widget?
     const formatter = Intl.DateTimeFormat(
@@ -101,6 +109,9 @@
         </button>
         <button on:click={pasteVideo}>
             <span ><IconPasteVideo /></span>
+        </button>
+        <button on:click={getFile}>
+            <span ><IconDownload /></span>
         </button>
     </nav>
     <nav class="right">
